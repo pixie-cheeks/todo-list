@@ -1,8 +1,7 @@
-const dialog = document.querySelector('dialog');
-const addTaskBtn = document.querySelector('button');
+import 'normalize.css';
+import './style.css';
+import './project-handler.js'
+import checkmarkSVG from './images/checkmark.svg';
 
-addTaskBtn.addEventListener('click', showDialog);
-
-function showDialog() {
-  dialog.showModal();
-}
+const checkmarkDOM = document.querySelector('.checkmark-svg');
+checkmarkDOM.src = checkmarkSVG;

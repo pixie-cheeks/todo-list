@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  font-size: 62.5%;
+  --todo-section-color: white;
+  --header-color: #35374B;
+  --sidebar-color: rgb(214, 208, 208);
+  --footer-color: #35374B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 3rem;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: 100px auto 50px;
+  grid-template-areas:
+    'header  header'
+    'sidebar todo-section'
+    'footer  footer';
+}
+
+header {
+  background-color: var(--header-color);
+  grid-area: header;
+  color: white;
+  font-weight: bold;
+  font-size: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebar {
+  background-color: var(--sidebar-color);
+  grid-area: sidebar;
+  padding: 2rem;
+}
+
+.sidebar__title {
+  font-weight: bold;
+}
+
+.add-projects {
+  display: block;
+  font-size: 2rem;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 0.8rem;
+  border: 2px solid rgb(185, 162, 162);
+  background-color: rgb(116, 117, 129);
+  color: hsl(195, 4%, 85%);
+}
+
+.projects {
+  font-size: 1.7rem;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.projects__item {
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  overflow: auto;
+}
+
+button {
+  border: none;
+  background: inherit;
+  cursor: pointer;
+}
+
+button.edit {
+  margin-left: auto;
+}
+
+button.delete {
+  margin: 0 0.4rem;
+}
+
+.projects__item:hover {
+  background-color: rgb(190, 186, 186);
+}
+
+.todo-section {
+  background-color: var(--todo-section-color);
+  grid-area: todo-section;
+  padding: 4rem;
+}
+
+.todo-head {
+  display: flex;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+button.add-todos {
+  flex: 0 0 auto;
+  align-self: start;
+  font-size: 2rem;
+  margin-left: auto;
+  border: 2px solid gray;
+  border-radius: 5px;
+  border: 2px solid rgb(185, 162, 162);
+  background-color: rgb(116, 117, 129);
+  color: hsl(195, 4%, 85%);
+}
+
+.todo {
+  font-size: 2rem;
+  background-color: rgb(163, 158, 158);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+footer {
+  background-color: var(--footer-color);
+  color: white;
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link--github {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: antiquewhite;
+}

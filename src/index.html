@@ -5,15 +5,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-do List</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-  <h1>Tasks:</h1>
-  <button>Add new task</button>
-  <dialog>
+  <header>
+    <img class="checkmark-svg"> To-do List
+  </header>
 
-  </dialog>
-  <div class="todo-items"></div>
+  <div class="sidebar">
+    <button class="add-projects">
+      <i class='bx bx-folder-plus'></i> Add Project
+    </button>
+    <div class="sidebar__title">Projects</div>
+    <div class="projects">
+
+      <template class="projects-template">
+        <div class="projects__item">
+          <div class="item__name"></div>
+          <button class="edit">
+            <i class='bx bxs-edit'></i>
+          </button>
+          <button class="delete">
+            <i class='bx bx-trash-alt'></i>
+          </button>
+        </div>
+      </template>
+
+    </div>
+  </div>
+
+  <div class="todo-section">
+    <div class="todo-head">
+      <div class="current-project-name">Test Project</div>
+      <div class="todo-container"></div>
+      <button class="add-todos">
+        <i class='bx bxs-plus-circle'></i> Add Task
+      </button>
+    </div>
+
+    <div class="todo">as;dfsad;f;sfasfsf</div>
+  </div>
+
+  <footer>
+    <a class="link link--github" href="https://github.com/pixie-cheeks" target="_blank" rel="noopener noreferrer">
+      <i class='bx bxl-github'></i>pixie-cheeks
+    </a>
+  </footer>
+
 </body>
 
 </html>
