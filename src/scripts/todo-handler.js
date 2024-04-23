@@ -1,4 +1,3 @@
-import eyeSVG from '../images/eye.svg';
 
 const parentDiv = document.querySelector('.todo-container');
 const todoTemplate = document.querySelector('.todo-template')
@@ -18,3 +17,7 @@ function addMultipleTodos(...titles) {
 }
 
 addMultipleTodos('first man standing', 'Second', '', 'Fourth');
+
+import { projectHandler, Todo, Project } from "./pure-logic";
+
+console.log(projectHandler);
