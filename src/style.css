@@ -77,7 +77,6 @@ header {
 button {
   border: none;
   background: inherit;
-  cursor: pointer;
 }
 
 button.edit {
@@ -86,6 +85,10 @@ button.edit {
 
 button.delete {
   margin: 0 0.4rem;
+}
+
+.projects__item button:hover {
+  color: hsl(0, 0%, 95%);
 }
 
 .projects__item:hover {
@@ -110,17 +113,68 @@ button.add-todos {
   font-size: 2rem;
   margin-left: auto;
   border: 2px solid gray;
-  border-radius: 5px;
+  border-radius: 0.7rem;
   border: 2px solid rgb(185, 162, 162);
   background-color: rgb(116, 117, 129);
   color: hsl(195, 4%, 85%);
+  padding: 0.2rem 0.5rem;
+}
+
+.todo-container {
+  display: grid;
+  gap: 0.5rem;
+  grid-auto-rows: 3.5rem;
+  background-color: rgb(204, 199, 199);
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 .todo {
-  font-size: 2rem;
-  background-color: rgb(163, 158, 158);
+  background-color: white;
+  font-size: 1.7rem;
   border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-left: 1rem solid black;
+}
+
+.todo:hover {
+  box-shadow: 2px 2px 6px black;
+}
+
+.todo input {
+  transform: scale(1.3);
+  padding: 10px;
+}
+
+.todo-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.todo-date {
+  flex: 0 0 auto;
+  margin-left: auto;
+  font-size: 1.5rem;
+}
+
+.todo button {
+  color: rgb(65, 75, 85);
+  fill: rgb(65, 75, 85);
+  padding: 0;
+}
+
+
+.todo button:hover {
+  color: rgb(0, 0, 0);
+  fill: rgb(0, 0, 0);
+}
+
+.add-btn:hover {
+  background-color: hsl(0, 0%, 55%);
 }
 
 footer {
