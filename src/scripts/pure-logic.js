@@ -1,6 +1,4 @@
-
 class Todo {
-
   completed = false;
 
   constructor(title, description, dueDate, priority) {
@@ -12,18 +10,22 @@ class Todo {
 }
 
 class Project {
-  todoItems = [];
+  #todoItems = [];
 
   constructor(title) {
     this.title = title;
   }
 
   addTodo(todoObj) {
-    this.todoItems.push(todoObj);
+    this.#todoItems.push(todoObj);
   }
 
   removeTodo(todoIndex) {
-    this.todoItems.splice(todoIndex, 1);
+    this.#todoItems.splice(todoIndex, 1);
+  }
+
+  getTodo(todoIndex) {
+    return this.#todoItems[todoIndex];
   }
 
   changeTitle(newTitle) {
@@ -31,16 +33,30 @@ class Project {
   }
 }
 
-const projects = [];
+class ProjectLogic {
+  #projects = [];
 
-const projectHandler = {
-  addProject(projectObj) {
-    projects.push(projectObj);
-  },
-  removeProject(projectIndex) {
-    projects.splice(projectIndex, 1);
+  addProject(projectTitle) {
+    this.#projects.push(
+      new Project(projectTitle)
+    );
   }
-};
 
+  removeProject(projectIndex) {
+    this.#projects.splice(projectIndex, 1);
+  }
 
-export { projectHandler, Todo, Project };
+  getProject(projectIndex) {
+    return this.#projects[projectIndex];
+  }
+
+  getProjects() {
+    return this.#projects;
+  }
+
+  renameProject(projectIndex, newTitle) {
+    this.#projects[projectIndex].changeTitle(newTitle);
+  }
+}
+
+export { ProjectLogic, Todo, Project };

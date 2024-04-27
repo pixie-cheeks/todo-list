@@ -17,7 +17,3 @@ function addMultipleTodos(...titles) {
 }
 
 addMultipleTodos('first man standing', 'Second', '', 'Fourth');
-
-import { projectHandler, Todo, Project } from "./pure-logic";
-
-console.log(projectHandler);

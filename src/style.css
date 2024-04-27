@@ -202,3 +202,7 @@ footer {
   cursor: pointer;
   color: antiquewhite;
 }
+
+i.bx {
+  pointer-events: none;
+}
