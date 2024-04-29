@@ -13,6 +13,24 @@
     <img class="checkmark-svg"> To-do List
   </header>
 
+  <dialog class="project-delete">
+    <div class="heading">Are you sure?</div>
+    <div class="description"></div>
+    <div class="buttons-container">
+      <button class="cancel">Cancel</button>
+      <button class="delete" autofocus>Delete</button>
+    </div>
+  </dialog>
+
+  <dialog class="project-edit">
+    <div class="heading">Edit Title</div>
+    <input type="text" name="new-title" id="new-title">
+    <div class="buttons-container">
+      <button class="cancel">Cancel</button>
+      <button class="save">Save</button>
+    </div>
+  </dialog>
+
   <div class="sidebar">
     <button class="add-projects add-btn">
       <i class='bx bx-folder-plus'></i> Add Project

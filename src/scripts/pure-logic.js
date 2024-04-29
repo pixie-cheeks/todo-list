@@ -12,8 +12,9 @@ class Todo {
 class Project {
   #todoItems = [];
 
-  constructor(title) {
+  constructor(title, active = false) {
     this.title = title;
+    this.active = active;
   }
 
   addTodo(todoObj) {
@@ -35,11 +36,14 @@ class Project {
 
 class ProjectLogic {
   #projects = [];
+  #activeIndex;
 
   addProject(projectTitle) {
-    this.#projects.push(
+    const projectsLength = this.#projects.push(
       new Project(projectTitle)
     );
+
+    this.#activeIndex = projectsLength - 1;
   }
 
   removeProject(projectIndex) {
@@ -57,6 +61,16 @@ class ProjectLogic {
   renameProject(projectIndex, newTitle) {
     this.#projects[projectIndex].changeTitle(newTitle);
   }
+
+  setActiveIndex(projectIndex) {
+    this.#activeIndex = projectIndex;
+  }
+
+  getActiveIndex() {
+    return this.#activeIndex;
+  }
 }
 
-export { ProjectLogic, Todo, Project };
+const projectLogic = new ProjectLogic();
+
+export { projectLogic, Todo, Project };

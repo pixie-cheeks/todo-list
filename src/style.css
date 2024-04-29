@@ -74,6 +74,11 @@ header {
   overflow: auto;
 }
 
+.focused-project {
+  background-color: darkgray;
+  color: darkslategray;
+}
+
 button {
   border: none;
   background: inherit;
@@ -122,26 +127,30 @@ button.add-todos {
 
 .todo-container {
   display: grid;
-  gap: 0.5rem;
+  gap: 1.5rem;
   grid-auto-rows: 3.5rem;
-  background-color: rgb(204, 199, 199);
-  padding: 1rem;
+  /* background-color: rgb(204, 199, 199); */
+  padding: 2rem 1rem;
   border-radius: 1rem;
 }
 
 .todo {
-  background-color: white;
+  background-color: hsl(0, 0%, 95%);
   font-size: 1.7rem;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-left: 1rem solid black;
+  border-left: 1rem solid pink;
+  box-shadow: 1px 1px 2px black;
 }
 
 .todo:hover {
-  box-shadow: 2px 2px 6px black;
+  background-color: hsl(0, 0%, 100%);
+  transition: all 0.1s ease-in;
+  box-shadow: 1px 1px 2px #282a52;
+
 }
 
 .todo input {
@@ -165,8 +174,13 @@ button.add-todos {
   color: rgb(65, 75, 85);
   fill: rgb(65, 75, 85);
   padding: 0;
+  display: flex;
+  align-items: center;
 }
 
+.todo-details {
+  translate: 0 0px;
+}
 
 .todo button:hover {
   color: rgb(0, 0, 0);
@@ -205,4 +219,68 @@ footer {
 
 i.bx {
   pointer-events: none;
+}
+
+dialog {
+  font-size: 2rem;
+  border: none;
+  border-radius: 1rem;
+}
+
+dialog::backdrop {
+  background-color: black;
+  opacity: 0.6;
+}
+
+dialog[open] {
+  width: 50ch;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  font-size: 1.5rem;
+}
+
+dialog .heading {
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+dialog .buttons-container {
+  align-self: center;
+  display: flex;
+  gap: 1rem;
+}
+
+dialog button {
+  box-sizing: content-box;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 7ch;
+}
+
+dialog button:hover {
+  transition: all 0.3s ease-in-out;
+}
+
+dialog button.cancel {
+  background-color: hsl(0, 0%, 90%);
+  color: black;
+}
+
+dialog button {
+  background-color: #3c3e68;
+  color: white;
+}
+
+dialog button.cancel:hover {
+  background-color: hsl(0, 0%, 80%);
+}
+
+dialog button:hover {
+  background-color: #232646;
+}
+
+dialog input[type=text] {
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
