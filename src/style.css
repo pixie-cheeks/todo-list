@@ -68,28 +68,44 @@ header {
 }
 
 .projects__item {
-  padding: 0.5rem 0 0.5rem 1rem;
+  padding: 1rem;
+  /* padding: 0; */
   border-radius: 0.5rem;
   display: flex;
-  overflow: auto;
+  margin: 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.focused-project {
+.projects__item > * {
+  margin: 0;
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+}
+
+.item__name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+.projects div.focused-project {
   background-color: darkgray;
-  color: darkslategray;
+  color: hsl(0, 0%, 0);
 }
 
 button {
   border: none;
   background: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 button.edit {
   margin-left: auto;
-}
-
-button.delete {
-  margin: 0 0.4rem;
 }
 
 .projects__item button:hover {
@@ -110,6 +126,13 @@ button.delete {
   display: flex;
   font-weight: bold;
   margin-bottom: 2rem;
+}
+
+.current-project-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 50ch;
 }
 
 button.add-todos {
@@ -217,7 +240,8 @@ footer {
   color: antiquewhite;
 }
 
-i.bx {
+i.bx,
+.item__name {
   pointer-events: none;
 }
 

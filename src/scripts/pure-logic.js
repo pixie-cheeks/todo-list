@@ -36,17 +36,18 @@ class Project {
 
 class ProjectLogic {
   #projects = [];
-  #activeIndex;
+  #activeIndex = null;
 
   addProject(projectTitle) {
-    const projectsLength = this.#projects.push(
+    this.#projects.push(
       new Project(projectTitle)
     );
-
-    this.#activeIndex = projectsLength - 1;
   }
 
   removeProject(projectIndex) {
+    if (projectIndex === this.#activeIndex) {
+      this.#activeIndex = null;
+    }
     this.#projects.splice(projectIndex, 1);
   }
 

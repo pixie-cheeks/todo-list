@@ -1,5 +1,6 @@
 import { projectLogic } from './pure-logic.js';
 import { projectDialogs } from './dialog-manager.js';
+import { contentSwitcher } from './project-tabs.js';
 
 class ProjectDOM {
   constructor(projectHandler, parentDiv, template, eventManager) {
@@ -21,10 +22,20 @@ class ProjectDOM {
   removeProject(projectIndex) {
     this.projectHandler.removeProject(projectIndex);
     this.#render();
+
+    if (!projectLogic.getActiveIndex()) {
+      contentSwitcher.resetContent();
+    }
   }
 
   renameProject(projectIndex, newTitle) {
     this.projectHandler.renameProject(projectIndex, newTitle);
+    this.#render();
+    contentSwitcher.populateContentContainer()
+  }
+
+  switchProject(projectIndex) {
+    projectLogic.setActiveIndex(projectIndex);
     this.#render();
   }
 
@@ -39,6 +50,13 @@ class ProjectDOM {
     });
 
     this.parentDiv.append(...elementsToAppend);
+    this.#styleActiveProject(projectLogic.getActiveIndex());
+  }
+
+  #styleActiveProject(activeIndex) {
+    if (!activeIndex) return;
+    this.parentDiv.children[activeIndex]
+      .classList.add('focused-project');
   }
 
   #createProjectDiv(title, index) {
@@ -58,6 +76,8 @@ class ProjectEvents {
     this.parentDiv = parentDiv;
   }
 
+  static registry = [];
+
   static register(eventClass) {
     ProjectEvents.registry.unshift(eventClass);
   }
@@ -67,26 +87,13 @@ class ProjectEvents {
   }
 
   handleClick(event) {
+    if (!(event.target.matches('button'))) return;
     const clickHandlerClass = ProjectEvents.registry.find(
       handler => handler.canHandle(event)
     );
 
     const projectIndex = event.target.parentElement.dataset.index;
     new clickHandlerClass(projectIndex).handleClick();
-  }
-}
-
-class DefaultEvent {
-  static canHandle(event) {
-    return true;
-  }
-
-  constructor(projectIndex) {
-    this.projectIndex = projectIndex;
-  }
-
-  handleClick() {
-    return;
   }
 }
 
@@ -195,7 +202,7 @@ class EditDialog {
   cancelBtn = this.editDialog.querySelector('button.cancel');
   inputField = this.editDialog.querySelector('input');
   boundFunctions = {
-    renameProject: this.renameProject.bind(this),
+    validateName: this.validateName.bind(this),
     closeDialog: this.closeDialog.bind(this),
     resetDialog: this.resetDialog.bind(this),
   };
@@ -205,6 +212,8 @@ class EditDialog {
   }
 
   showDialog() {
+    this.inputField.value =
+      projectLogic.getProject(this.projectIndex).title;
     this.editDialog.showModal();
     this.bindEvents();
   }
@@ -220,6 +229,17 @@ class EditDialog {
     this.closeDialog();
   }
 
+  validateName() {
+    if (
+      /^\s*$/g.test(this.inputField.value)
+    ) {
+      this.closeDialog();
+      return;
+    }
+
+    this.renameProject();
+  }
+
   resetDialog() {
     this.inputField.value = '';
     this.unbindEvents();
@@ -227,7 +247,7 @@ class EditDialog {
 
   bindEvents() {
     this.saveBtn.addEventListener(
-      'click', this.boundFunctions.renameProject
+      'click', this.boundFunctions.validateName
     );
     this.cancelBtn.addEventListener(
       'click', this.boundFunctions.closeDialog
@@ -239,22 +259,20 @@ class EditDialog {
 
   unbindEvents() {
     this.saveBtn.removeEventListener(
-      'click', this.boundFunctions.renameProject
+      'click', this.boundFunctions.validateName
     );
     this.cancelBtn.removeEventListener(
       'click', this.boundFunctions.closeDialog
     );
     this.editDialog.removeEventListener(
-      'close', this.boundFunctions.unbindEvents
+      'close', this.boundFunctions.resetDialog
     );
   }
 
 }
 
-ProjectEvents.registry = [DefaultEvent];
 ProjectEvents.register(EditEvent);
 ProjectEvents.register(DeleteEvent);
-
 
 const projectsContainerDiv = document.querySelector('.projects');
 const projectsTemplateDiv = document.querySelector('.projects-template')
@@ -271,8 +289,54 @@ const projectsController = new ProjectDOM(
   projectEventsController,
 );
 
+const projectAdder = (() => {
+  const addProjectBtn = document.querySelector('.add-projects');
+  const addDialog = projectDialogs.add;
+  const saveBtn = addDialog.querySelector('button.save');
+  const cancelBtn = addDialog.querySelector('button.cancel');
+  const inputField = addDialog.querySelector('input');
 
+  bindEvents();
+  addProjectBtn.addEventListener('click', showDialog);
+
+  function showDialog() {
+    addDialog.showModal();
+  }
+
+  function closeDialog() {
+    addDialog.close();
+  }
+
+  function addProject() {
+    projectsController.addProject(inputField.value);
+    closeDialog();
+  }
+
+  function validateName() {
+    if (
+      /^\s*$/g.test(inputField.value)
+    ) {
+      closeDialog();
+      return;
+    }
+
+    addProject();
+  }
+
+  function resetDialog() {
+    inputField.value = '';
+  }
+
+  function bindEvents() {
+    saveBtn.addEventListener('click', validateName);
+    cancelBtn.addEventListener('click', closeDialog);
+    addDialog.addEventListener('close', resetDialog);
+  }
+
+})();
 
 projectsController.bindEvents();
 projectsController.addProject('My Project');
 projectsController.addProject('My Project Two');
+
+export default projectsController;
