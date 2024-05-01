@@ -31,7 +31,9 @@ class ProjectDOM {
   renameProject(projectIndex, newTitle) {
     this.projectHandler.renameProject(projectIndex, newTitle);
     this.#render();
-    contentSwitcher.populateContentContainer()
+    if (projectLogic.getActiveIndex() === projectIndex) {
+      contentSwitcher.populateContentContainer();
+    }
   }
 
   switchProject(projectIndex) {

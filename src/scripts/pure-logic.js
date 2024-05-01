@@ -29,6 +29,10 @@ class Project {
     return this.#todoItems[todoIndex];
   }
 
+  getAllTodos() {
+    return this.#todoItems;
+  }
+
   changeTitle(newTitle) {
     this.title = newTitle;
   }

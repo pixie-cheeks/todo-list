@@ -28,14 +28,15 @@ function populateContentContainer() {
   resetContent();
   const content = contentTemplate.cloneNode(true);
   const projectTitleDiv = content.querySelector('.current-project-name');
-  const addTodoBtn = content.querySelector('.add-btn.add-todos');
-  const todoContainer = content.querySelector('.todo-container');
   const project = projectLogic.getProject(projectLogic.getActiveIndex());
 
+  /*
+  new TodoDOM(project, content).init();
+  */
+
   projectTitleDiv.textContent = project.title;
-  // addTodoBtn.addEventListener('click', addTodo);
   contentContainer.appendChild(content);
-  console.log(project)
+
 }
 
 const contentSwitcher = {
