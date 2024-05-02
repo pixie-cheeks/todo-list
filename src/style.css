@@ -169,6 +169,14 @@ button.add-todos {
   box-shadow: 1px 1px 2px black;
 }
 
+.completed {
+  opacity: 0.5;
+}
+
+.todo-delete .heading {
+  font-size: 3rem;
+}
+
 .todo:hover {
   background-color: hsl(0, 0%, 100%);
   transition: all 0.1s ease-in;
@@ -194,11 +202,11 @@ button.add-todos {
 }
 
 .todo button {
-  color: rgb(65, 75, 85);
-  fill: rgb(65, 75, 85);
+  color: inherit;
   padding: 0;
   display: flex;
   align-items: center;
+  opacity: 0.7;
 }
 
 .todo-details {
@@ -206,8 +214,7 @@ button.add-todos {
 }
 
 .todo button:hover {
-  color: rgb(0, 0, 0);
-  fill: rgb(0, 0, 0);
+  opacity: 1;
 }
 
 .add-btn:hover {
@@ -241,7 +248,8 @@ footer {
 }
 
 i.bx,
-.item__name {
+.item__name,
+svg {
   pointer-events: none;
 }
 

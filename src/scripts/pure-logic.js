@@ -25,6 +25,16 @@ class Project {
     this.#todoItems.splice(todoIndex, 1);
   }
 
+  editTodo(todoIndex, newTodoObj) {
+    this.#todoItems[todoIndex] = newTodoObj;
+  }
+
+  switchComplete(todoIndex) {
+    console.log(todoIndex);
+    this.#todoItems[todoIndex].completed =
+      this.#todoItems[todoIndex].completed ? false : true;
+  }
+
   getTodo(todoIndex) {
     return this.#todoItems[todoIndex];
   }

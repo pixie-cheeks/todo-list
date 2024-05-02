@@ -1,8 +1,10 @@
 // import todoPopulator
 import { projectLogic } from "./pure-logic.js";
 import projectsController from "./project-handler.js";
+import { TodoDOM } from "./todo-dom.js";
 
-const contentTemplate = document.querySelector('template.project-content').content.cloneNode(true);
+const contentTemplate = document.querySelector('template.project-content')
+  .content.cloneNode(true);
 const contentContainer = document.querySelector('.todo-section');
 const projectBar = document.querySelector('.projects');
 
@@ -26,22 +28,20 @@ function resetContent() {
 
 function populateContentContainer() {
   resetContent();
-  const content = contentTemplate.cloneNode(true);
-  const projectTitleDiv = content.querySelector('.current-project-name');
+  const contentFragment = contentTemplate.cloneNode(true);
+  const projectTitleDiv = contentFragment.querySelector('.current-project-name');
   const project = projectLogic.getProject(projectLogic.getActiveIndex());
 
-  /*
-  new TodoDOM(project, content).init();
-  */
+  new TodoDOM(project, contentFragment).init();
 
   projectTitleDiv.textContent = project.title;
-  contentContainer.appendChild(content);
-
+  contentContainer.appendChild(contentFragment);
 }
 
 const contentSwitcher = {
   resetContent,
   populateContentContainer,
+  selectProject,
 }
 
 export { contentSwitcher };

@@ -1,12 +1,25 @@
 import 'normalize.css';
 import './style.css';
-import './scripts/project-handler.js';
+import projectsController from './scripts/project-handler.js';
 import './scripts/todo-handler.js';
-import './scripts/pure-logic.js';
-import './scripts/project-handler.js';
-import './scripts/project-tabs.js';
+import { projectLogic, Todo } from './scripts/pure-logic.js';
+import { contentSwitcher } from './scripts/project-tabs.js';
 import checkmarkSVG from './images/checkmark.svg';
 
 const checkmarkDOM = document.querySelector('.checkmark-svg');
 
 checkmarkDOM.src = checkmarkSVG;
+
+projectsController.addProject('My Project');
+projectsController.addProject('My Project Two');
+
+const todoMan = new Todo('hello', '', '55 Dec')
+todoMan.completed = true;
+
+projectLogic.getProject(0).addTodo(new Todo('Task 1', 'Big Task', '69 November', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 2', 'Big Task', '69 November', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 3', 'Big Task', '69 November', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 4', 'Big Task', '69 November', 'low'));
+projectLogic.getProject(0).addTodo(todoMan);
+
+contentSwitcher.selectProject(0);

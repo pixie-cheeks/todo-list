@@ -1,4 +1,4 @@
-import { projectLogic } from './pure-logic.js';
+import { projectLogic, Todo } from './pure-logic.js';
 import { projectDialogs } from './dialog-manager.js';
 import { contentSwitcher } from './project-tabs.js';
 
@@ -10,7 +10,7 @@ class ProjectDOM {
     this.eventManager = eventManager;
   }
 
-  bindEvents() {
+  init() {
     this.eventManager.bindEvents();
   }
 
@@ -23,7 +23,7 @@ class ProjectDOM {
     this.projectHandler.removeProject(projectIndex);
     this.#render();
 
-    if (!projectLogic.getActiveIndex()) {
+    if (projectLogic.getActiveIndex() === null) {
       contentSwitcher.resetContent();
     }
   }
@@ -56,7 +56,7 @@ class ProjectDOM {
   }
 
   #styleActiveProject(activeIndex) {
-    if (!activeIndex) return;
+    if (activeIndex === null) return;
     this.parentDiv.children[activeIndex]
       .classList.add('focused-project');
   }
@@ -337,8 +337,7 @@ const projectAdder = (() => {
 
 })();
 
-projectsController.bindEvents();
-projectsController.addProject('My Project');
-projectsController.addProject('My Project Two');
+
+projectsController.init();
 
 export default projectsController;
