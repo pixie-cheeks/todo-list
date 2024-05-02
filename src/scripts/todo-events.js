@@ -1,6 +1,7 @@
 import { projectLogic, Todo } from './pure-logic';
 import { todoDialogs } from './dialog-manager';
 import EventBinder from './eventBinder';
+import projectsController from './project-handler';
 
 class TodoEvents {
   static registry = [];
@@ -50,11 +51,21 @@ class CompleteEvent {
 }
 
 class AddEvent {
-  constructor(todoController, event) {
+  constructor(todoController) {
     this.todoController = todoController;
-    this.event = event;
-    this.todoIndex = event.target.parentElement.dataset.index;
-    this.addDialog = todoDialogs.add;
+    this.dialog = todoDialogs.add;
+    this.eventBinder = new EventBinder();
+    this.resetBtn = this.dialog.querySelector('button[type=reset]');
+    this.cancelBtn = this.dialog.querySelector('button.cancel');
+    this.saveBtn = this.dialog.querySelector('button.save');
+
+    this.titleDiv = this.dialog.querySelector('#title');
+    this.descriptionDiv = this.dialog.querySelector('#description');
+    this.dateDiv = this.dialog.querySelector('#due-date');
+    this.priorities = Array.from(
+      this.dialog.querySelectorAll('input[type=radio]')
+    );
+    this.inputFields = [this.titleDiv, this.dateDiv, this.descriptionDiv];
   }
 
   static canHandle(event) {
@@ -62,7 +73,63 @@ class AddEvent {
   }
 
   handleClick() {
-    this.addDialog.showModal();
+    this.showDialog();
+  }
+
+  showDialog() {
+    this.bindEvents();
+    this.dialog.showModal();
+  }
+
+  resetDialog() {
+    this.resetBtn.click();
+    this.eventBinder.removeAllListeners();
+  }
+
+  closeDialog() {
+    this.dialog.close();
+  }
+
+  actionWhenSave() {
+    this.addTodo();
+  }
+
+  addTodo() {
+    this.todoController.addTodo(this.valuesToObject());;
+  }
+
+  valuesToObject() {
+    const priority = this.priorities.find(elem => elem.checked);
+
+    return new Todo(
+      this.titleDiv.value,
+      this.descriptionDiv.value,
+      this.dateDiv.value,
+      priority.value,
+    );
+  }
+
+  bindEvents() {
+    this.eventBinder.addListener(this.dialog, 'close', () => {
+      this.resetDialog();
+    });
+
+    this.eventBinder.addListener(this.cancelBtn, 'click', () => {
+      this.closeDialog();
+    });
+
+    this.eventBinder.addListener(this.saveBtn, 'click', () => {
+      const firstInvalid = this.inputFields.find(
+        elem => !elem.checkValidity()
+      );
+      if (Boolean(firstInvalid)) {
+        firstInvalid.reportValidity();
+        return;
+      }
+
+      this.actionWhenSave();
+      this.closeDialog();
+    });
   }
 }
 
@@ -82,11 +149,12 @@ class ShowEvent {
   }
 }
 
-class EditEvent {
+class EditEvent extends AddEvent {
   constructor(todoController, event) {
-    this.todoController = todoController;
-    this.event = event;
+    super(todoController);
     this.todoIndex = event.target.parentElement.dataset.index;
+    this.todoObj = this.todoController.project.getTodo(this.todoIndex);
+    this.dialogHead = this.dialog.querySelector('h3');
   }
 
   static canHandle(event) {
@@ -94,8 +162,39 @@ class EditEvent {
   }
 
   handleClick() {
-    alert('clicked the edit button');
+    this.renderDialog();
+    this.showDialog();
   }
+
+  actionWhenSave() {
+    this.editTodo();
+  }
+
+  editTodo() {
+    this.todoController.editTodo(this.todoIndex, this.valuesToObject());
+  }
+
+  resetDialog() {
+    this.dialogHead.textContent = 'Add a New Task';
+    this.resetBtn.click();
+    this.eventBinder.removeAllListeners();
+  }
+
+  renderDialog() {
+    this.dialogHead.textContent = 'Edit Task';
+    this.objectToValues();
+  }
+
+  objectToValues() {
+    this.titleDiv.value = this.todoObj.title;
+    this.descriptionDiv.value = this.todoObj.description;
+    this.dateDiv.value = this.todoObj.dueDate;
+
+    this.priorities.find(
+      elem => elem.value === this.todoObj.priority
+    ).checked = true;
+  }
+
 }
 
 class DeleteEvent {

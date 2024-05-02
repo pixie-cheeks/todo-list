@@ -13,7 +13,7 @@ checkmarkDOM.src = checkmarkSVG;
 projectsController.addProject('My Project');
 projectsController.addProject('My Project Two');
 
-const todoMan = new Todo('hello', '', '55 Dec')
+const todoMan = new Todo('hello', 'sdsffsd', '2024-01-05', 'high')
 todoMan.completed = true;
 
 projectLogic.getProject(0).addTodo(new Todo('Task 1', 'Big Task', '69 November', 'low'));

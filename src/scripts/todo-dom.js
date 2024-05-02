@@ -27,12 +27,15 @@ class TodoDOM {
     this.#render();
   }
 
+  editTodo(todoIndex, newTodoObj) {
+    this.project.editTodo(todoIndex, newTodoObj);
+    this.#render();
+  }
+
   switchComplete(todoIndex) {
     this.project.switchComplete(todoIndex);
     this.#render();
   }
-
-  // getTodo
 
   #render() {
     this.todoContainer.textContent = '';
@@ -53,6 +56,7 @@ class TodoDOM {
     todoTitle.textContent = todo.title;
     todoDate.textContent = todo.dueDate;
     todoComplete.checked = todo.completed;
+    todoDiv.classList.add(todo.priority);
 
     if (todo.completed) {
       todoTitle.style.textDecoration = 'line-through';

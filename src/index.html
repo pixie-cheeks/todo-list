@@ -41,11 +41,44 @@
   </dialog>
 
   <dialog class="todo-add">
-    <form action=""></form>
-  </dialog>
+    <form>
+      <h3>Add a New Task</h3>
+      <div class="field">
+        <label for="title">Title <span class="red-star">*</span></label>
+        <input type="text" name="title" id="title" required>
+      </div>
 
-  <dialog class="todo-edit">
-    <form action=""></form>
+      <div class="field">
+        <label for="description">Description (optional)</label>
+        <textarea name="description" id="description" rows="5"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="due-date">Due Date <span class="red-star">*</span></label>
+        <input type="date" name="due-date" id="due-date" required>
+      </div>
+
+
+      <div class="priority-container">
+        <div class="priority-heading">Priority</div>
+        <div class="priority-radios">
+          <input type="radio" id="priority-low" name="priority" value="low" checked>
+          <label class="priority low" for="priority-low">Low</label>
+
+          <input type="radio" id="priority-medium" name="priority" value="medium">
+          <label class="priority medium" for="priority-medium">Medium</label>
+
+          <input type="radio" id="priority-high" name="priority" value="high">
+          <label class="priority high" for="priority-high">High</label>
+        </div>
+      </div>
+
+      <div class="form-controls">
+        <button type="button" class="cancel">Cancel</button>
+        <button type="button" class="save">Save</button>
+        <button type="reset" style="display: none;"></button>
+      </div>
+    </form>
   </dialog>
 
   <dialog class="todo-delete">

@@ -6,6 +6,9 @@
   --header-color: #35374B;
   --sidebar-color: rgb(214, 208, 208);
   --footer-color: #35374B;
+  --low-color: #337357;
+  --medium-color: #FFD23F;
+  --high-color: #EE4266;
 }
 
 * {
@@ -277,6 +280,10 @@ dialog .heading {
   font-size: 1.7rem;
 }
 
+dialog.todo-delete {
+  width: fit-content;
+}
+
 dialog .buttons-container {
   align-self: center;
   display: flex;
@@ -312,7 +319,125 @@ dialog button:hover {
   background-color: #232646;
 }
 
-dialog input[type=text] {
+dialog input,
+textarea {
   border-radius: 0.5rem;
   padding: 1rem;
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+dialog.todo-add form input,
+textarea {
+  font-size: 1.7rem;
+  padding: 0.5rem;
+  border: 1px solid gray;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.1rem hsla(220, 100%, 50%, 80%);
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.priority-radios {
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  padding-top: 0.3rem;
+}
+
+label.priority {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+}
+
+label.low {
+  border: 1px solid var(--low-color);
+  color: var(--low-color);
+}
+
+label.medium {
+  border: 1px solid var(--medium-color);
+  color: var(--medium-color);
+}
+
+label.high {
+  border: 1px solid var(--high-color);
+  color: var(--high-color);
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + label,
+.priority-radios label:hover {
+  color: white;
+}
+
+input[type="radio"]:checked + .low,
+label.low:hover {
+  background-color: var(--low-color);
+}
+
+input[type="radio"]:checked + .medium,
+label.medium:hover {
+  background-color: var(--medium-color);
+}
+
+input[type="radio"]:checked + .high,
+label.high:hover {
+  background-color: var(--high-color);
+}
+
+input[type="radio"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+dialog input:valid {
+  box-shadow: 0 0 0 0.1rem greenyellow;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+dialog .form-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.red-star {
+  color: red;
+}
+
+.todo.low {
+  border-color: var(--low-color);
+}
+
+.todo.medium {
+  border-color: var(--medium-color);
+}
+
+.todo.high {
+  border-color: var(--high-color);
 }
