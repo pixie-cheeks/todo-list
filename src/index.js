@@ -16,10 +16,10 @@ projectsController.addProject('My Project Two');
 const todoMan = new Todo('hello', 'sdsffsd', '2024-01-05', 'high')
 todoMan.completed = true;
 
-projectLogic.getProject(0).addTodo(new Todo('Task 1', 'Big Task', '69 November', 'low'));
-projectLogic.getProject(0).addTodo(new Todo('Task 2', 'Big Task', '69 November', 'low'));
-projectLogic.getProject(0).addTodo(new Todo('Task 3', 'Big Task', '69 November', 'low'));
-projectLogic.getProject(0).addTodo(new Todo('Task 4', 'Big Task', '69 November', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 1', 'Big Task', '2024-05-02', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 2', 'Big Task', '2024-05-02', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 3', 'Big Task', '2024-05-02', 'low'));
+projectLogic.getProject(0).addTodo(new Todo('Task 4', 'Big Task', '2024-05-02', 'low'));
 projectLogic.getProject(0).addTodo(todoMan);
 
 contentSwitcher.selectProject(0);

@@ -30,7 +30,6 @@ class Project {
   }
 
   switchComplete(todoIndex) {
-    console.log(todoIndex);
     this.#todoItems[todoIndex].completed =
       this.#todoItems[todoIndex].completed ? false : true;
   }

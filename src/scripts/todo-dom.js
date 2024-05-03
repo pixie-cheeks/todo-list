@@ -1,5 +1,5 @@
-import { projectLogic, Todo } from "./pure-logic";
 import { TodoEvents } from './todo-events';
+import { format } from 'date-fns';
 
 const todoTemplate = document.querySelector('.todo-template').content.cloneNode(true);
 const contentContainer = document.querySelector('.todo-section');
@@ -54,7 +54,7 @@ class TodoDOM {
 
 
     todoTitle.textContent = todo.title;
-    todoDate.textContent = todo.dueDate;
+    todoDate.textContent = format(todo.dueDate, 'dd MMM');
     todoComplete.checked = todo.completed;
     todoDiv.classList.add(todo.priority);
 

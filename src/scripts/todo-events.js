@@ -49,7 +49,6 @@ class CompleteEvent {
   }
 
   handleClick() {
-    console.log(this.todoIndex);
     this.todoController.switchComplete(this.todoIndex);
   }
 }
@@ -120,6 +119,10 @@ class AddEvent {
     this.selProject.textContent = '';
   }
 
+  actionForSelect(selectedProject) {
+    projectLogic.getProject(selectedProject).addTodo(this.valuesToObject());
+  }
+
   closeDialog() {
     this.dialog.close();
   }
@@ -161,6 +164,13 @@ class AddEvent {
         return;
       }
 
+      const selectedProject = Number(this.selProject.value);
+      // when the value of select is not the current project
+      if (projectLogic.getActiveIndex() !== selectedProject) {
+        this.actionForSelect(selectedProject);
+        this.closeDialog();
+        return;
+      }
       this.actionWhenSave();
       this.closeDialog();
     });
@@ -262,6 +272,14 @@ class EditEvent extends AddEvent {
     this.priorities.find(
       elem => elem.value === this.todoObj.priority
     ).checked = true;
+  }
+
+  actionForSelect(selectedProject) {
+    const newTodo = this.valuesToObject();
+    newTodo.completed = this.todoObj.completed;
+
+    this.todoController.removeTodo(this.todoIndex);
+    projectLogic.getProject(selectedProject).addTodo(newTodo);
   }
 
 }
