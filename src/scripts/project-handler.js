@@ -94,7 +94,7 @@ class ProjectEvents {
       handler => handler.canHandle(event)
     );
 
-    const projectIndex = event.target.parentElement.dataset.index;
+    const projectIndex = Number(event.target.parentElement.dataset.index);
     new clickHandlerClass(projectIndex).handleClick();
   }
 }

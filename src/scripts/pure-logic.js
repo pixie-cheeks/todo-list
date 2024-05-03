@@ -1,11 +1,10 @@
 class Todo {
-  completed = false;
-
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, completed = false) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.completed = completed;
   }
 }
 
@@ -70,6 +69,10 @@ class ProjectLogic {
 
   getProjects() {
     return this.#projects;
+  }
+
+  setProjects(newProjects) {
+    return this.#projects = newProjects;
   }
 
   renameProject(projectIndex, newTitle) {

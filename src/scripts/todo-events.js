@@ -232,9 +232,9 @@ class ShowEvent {
 class EditEvent extends AddEvent {
   constructor(todoController, event) {
     super(todoController);
+    this.dialogHead = this.dialog.querySelector('h3');
     this.todoIndex = event.target.parentElement.dataset.index;
     this.todoObj = this.todoController.project.getTodo(this.todoIndex);
-    this.dialogHead = this.dialog.querySelector('h3');
   }
 
   static canHandle(event) {
@@ -251,7 +251,10 @@ class EditEvent extends AddEvent {
   }
 
   editTodo() {
-    this.todoController.editTodo(this.todoIndex, this.valuesToObject());
+    const edited = this.valuesToObject();
+    edited.completed = this.todoObj.completed;
+
+    this.todoController.editTodo(this.todoIndex, edited);
   }
 
   reset() {
