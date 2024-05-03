@@ -13,7 +13,7 @@ projectBar.addEventListener('click', handleClick);
 function handleClick(event) {
   if (!(event.target.matches('.projects__item'))) return;
 
-  selectProject(event.target.dataset.index);
+  selectProject(Number(event.target.dataset.index));
 }
 
 function selectProject(selectedIndex) {

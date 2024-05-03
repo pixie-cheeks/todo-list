@@ -320,8 +320,10 @@ dialog button:hover {
 }
 
 dialog input,
-textarea {
+textarea,
+select {
   border-radius: 0.5rem;
+  border: 1px solid gray;
   padding: 1rem;
 }
 
@@ -337,14 +339,16 @@ h3 {
 }
 
 dialog.todo-add form input,
-textarea {
+textarea,
+select {
   font-size: 1.7rem;
   padding: 0.5rem;
   border: 1px solid gray;
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
   box-shadow: 0 0 0 0.1rem hsla(220, 100%, 50%, 80%);
 }
@@ -352,6 +356,10 @@ textarea:focus {
 textarea {
   resize: none;
   width: 100%;
+}
+
+.priority-container {
+  display: inline-block;
 }
 
 .priority-radios {
@@ -411,7 +419,7 @@ input[type="radio"]:focus {
   box-shadow: none;
 }
 
-dialog input:valid {
+dialog[class^=todo] input:valid {
   box-shadow: 0 0 0 0.1rem greenyellow;
 }
 
@@ -440,4 +448,80 @@ dialog .form-controls {
 
 .todo.high {
   border-color: var(--high-color);
+}
+
+[open].todo-detail {
+  width: fit-content;
+  display: grid;
+  grid-template-areas:
+    'heading heading'
+    'content properties';
+  grid-template-columns: 50ch 20ch;
+  padding: 0;
+  gap: 0;
+}
+
+.todo-detail > * {
+  padding: 1rem;
+}
+
+.todo-detail .heading {
+  grid-area: heading;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(218, 210, 210);
+  align-items: center;
+}
+
+.todo-detail .content-container {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content-container .task-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.todo-detail .properties-container {
+  grid-area: properties;
+  background-color: hsl(0, 0%, 95%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.content {
+  padding-left: 1rem;
+}
+
+.todo-detail button {
+  display: block;
+  padding: 0;
+  margin: 0;
+  color: black;
+  background-color: white;
+  font-size: 3rem;
+  width: fit-content;
+}
+
+.todo-detail button:hover {
+  padding: 0;
+  margin: 0;
+  color: black;
+  background-color: white;
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+dialog .select-container {
+  display: flex;
+  flex-direction: column;
 }

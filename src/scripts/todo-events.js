@@ -3,6 +3,10 @@ import { todoDialogs } from './dialog-manager';
 import EventBinder from './eventBinder';
 import projectsController from './project-handler';
 
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 class TodoEvents {
   static registry = [];
   static register(eventClass) {
@@ -65,6 +69,7 @@ class AddEvent {
     this.priorities = Array.from(
       this.dialog.querySelectorAll('input[type=radio]')
     );
+    this.selProject = this.dialog.querySelector('select');
     this.inputFields = [this.titleDiv, this.dateDiv, this.descriptionDiv];
   }
 
@@ -77,13 +82,42 @@ class AddEvent {
   }
 
   showDialog() {
+    this.renderSelectOptions();
     this.bindEvents();
     this.dialog.showModal();
   }
 
+  reset() {
+    this.resetDialog();
+  }
+
   resetDialog() {
+    this.resetSelectOptions();
     this.resetBtn.click();
     this.eventBinder.removeAllListeners();
+  }
+
+  renderSelectOptions() {
+    const docFrag = document.createDocumentFragment();
+
+    projectLogic.getProjects().forEach((project, index) => {
+      const option = document.createElement('option');
+
+      option.value = index;
+      option.textContent = project.title;
+
+      if (projectLogic.getActiveIndex() === index) {
+        option.selected = true;
+      }
+
+      docFrag.appendChild(option);
+    });
+
+    this.selProject.appendChild(docFrag);
+  }
+
+  resetSelectOptions() {
+    this.selProject.textContent = '';
   }
 
   closeDialog() {
@@ -111,7 +145,7 @@ class AddEvent {
 
   bindEvents() {
     this.eventBinder.addListener(this.dialog, 'close', () => {
-      this.resetDialog();
+      this.reset();
     });
 
     this.eventBinder.addListener(this.cancelBtn, 'click', () => {
@@ -136,8 +170,17 @@ class AddEvent {
 class ShowEvent {
   constructor(todoController, event) {
     this.todoController = todoController;
-    this.event = event;
     this.todoIndex = event.target.parentElement.dataset.index;
+    this.todo = todoController.project.getTodo(this.todoIndex);
+    this.dialog = todoDialogs.detail;
+    this.eventBinder = new EventBinder();
+    this.exitBtn = this.dialog.querySelector('button.exit');
+
+    this.titleDiv = this.dialog.querySelector('.task-title');
+    this.descriptionDiv = this.dialog.querySelector('.task-description');
+    this.projectTitleDiv = this.dialog.querySelector('.project-name .content');
+    this.dateDiv = this.dialog.querySelector('.due-date .content');
+    this.priorityDiv = this.dialog.querySelector('.priority .content');
   }
 
   static canHandle(event) {
@@ -145,7 +188,34 @@ class ShowEvent {
   }
 
   handleClick() {
-    alert('clicked the eye button');
+    this.showDialog();
+  }
+
+  showDialog() {
+    this.bindEvents();
+    this.renderDialog();
+    this.dialog.showModal();
+  }
+
+  closeDialog() {
+    this.dialog.close();
+  }
+
+  renderDialog() {
+    this.titleDiv.textContent = this.todo.title;
+    this.descriptionDiv.textContent = this.todo.description;
+    this.projectTitleDiv.textContent = this.todoController.project.title;
+    this.dateDiv.textContent = this.todo.dueDate;
+    this.priorityDiv.textContent = capitalize(this.todo.priority);
+  }
+
+  resetDialog() {
+    this.eventBinder.removeAllListeners();
+  }
+
+  bindEvents() {
+    this.eventBinder.addListener(this.exitBtn, 'click', () => this.closeDialog());
+    this.eventBinder.addListener(this.dialog, 'close', () => this.resetDialog());
   }
 }
 
@@ -174,10 +244,9 @@ class EditEvent extends AddEvent {
     this.todoController.editTodo(this.todoIndex, this.valuesToObject());
   }
 
-  resetDialog() {
+  reset() {
     this.dialogHead.textContent = 'Add a New Task';
-    this.resetBtn.click();
-    this.eventBinder.removeAllListeners();
+    this.resetDialog();
   }
 
   renderDialog() {

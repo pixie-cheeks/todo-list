@@ -58,6 +58,11 @@
         <input type="date" name="due-date" id="due-date" required>
       </div>
 
+      <div class="select-container">
+        <label for="project-select">Select a project</label>
+        <select name="projects" id="project-select">
+        </select>
+      </div>
 
       <div class="priority-container">
         <div class="priority-heading">Priority</div>
@@ -71,6 +76,8 @@
           <input type="radio" id="priority-high" name="priority" value="high">
           <label class="priority high" for="priority-high">High</label>
         </div>
+
+
       </div>
 
       <div class="form-controls">
@@ -92,8 +99,31 @@
     </div>
   </dialog>
 
-  <dialog class="todo-show">
-    <form action=""></form>
+  <dialog class="todo-detail">
+    <div class="heading">
+      <h3>Task Details</h3>
+      <button class="exit"><i class='bx bx-x'></i></button>
+    </div>
+
+    <div class="content-container">
+      <div class="task-title"></div>
+      <div class="task-description"></div>
+    </div>
+    <div class="properties-container">
+      <div class="project-name">
+        <div class="title">Project</div>
+        <div class="content"></div>
+      </div>
+      <div class="due-date">
+        <div class="title">Due date</div>
+        <div class="content"></div>
+      </div>
+      <div class="priority">
+        <div class="title">Priority</div>
+        <div class="content"></div>
+      </div>
+    </div>
+
   </dialog>
 
   <div class="sidebar">
