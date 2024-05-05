@@ -94,7 +94,7 @@ class ShowDeleteTask {
 
 class ShowTaskDetails {
   static canHandle(event) {
-    return event.target.matches('button.todo-details');
+    return event.target.matches('button.todo-expand');
   }
 
   constructor(event) {

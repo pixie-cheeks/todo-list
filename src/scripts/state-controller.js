@@ -1,8 +1,6 @@
 import { getState } from "./state";
 import { updateStorage } from './storage';
 
-const projects = getState().projects;
-
 function getTasks(projectIndex) {
   return getState().projects[projectIndex].tasks
 }
@@ -18,25 +16,25 @@ const project = {
     };
   },
   add(name) {
-    projects.push(this.create(name));
-    updateStorage();
+    getState().projects.push(this.create(name));
+    updateStorage(getState());
   },
   rename(projectIndex, name) {
-    projects[projectIndex].name = name;
-    updateStorage();
+    getState().projects[projectIndex].name = name;
+    updateStorage(getState());
   },
   remove(projectIndex) {
-    projects.splice(projectIndex, 1);
+    getState().projects.splice(projectIndex, 1);
 
     if (projectIndex === this.getSelectedIndex()) {
       this.setSelected(null);
       return;
     }
 
-    updateStorage();
+    updateStorage(getState());
   },
   getSelected() {
-    const selectedProject = projects.find(project => project.selected);
+    const selectedProject = getState().projects.find(project => project.selected);
 
     return selectedProject ? selectedProject : null;
   },
@@ -50,15 +48,15 @@ const project = {
     }
 
     if (projectIndex !== null) {
-      projects[projectIndex].selected = true;
+      getState().projects[projectIndex].selected = true;
     }
 
     getState().selectedProjectIndex = projectIndex;
 
-    updateStorage();
+    updateStorage(getState());
   },
   get(projectIndex) {
-    return projects[projectIndex];
+    return getState().projects[projectIndex];
   }
 };
 
@@ -76,20 +74,20 @@ const task = {
   add(projectIndex, ...taskProperties) {
     getTasks(projectIndex).push(this.create(...taskProperties));
 
-    updateStorage();
+    updateStorage(getState());
   },
   replace(projectIndex, taskIndex, ...newTaskProperties) {
     getTasks(projectIndex)[taskIndex] = this.create(...newTaskProperties);
-    updateStorage();
+    updateStorage(getState());
   },
   switchCompleted(projectIndex, taskIndex) {
     const task = getTasks(projectIndex)[taskIndex];
     task.completed = task.completed ? false : true;
-    updateStorage();
+    updateStorage(getState());
   },
   remove(projectIndex, taskIndex) {
     getTasks(projectIndex).splice(taskIndex, 1);
-    updateStorage();
+    updateStorage(getState());
   },
   get(projectIndex, taskIndex) {
     return getTasks(projectIndex)[taskIndex];

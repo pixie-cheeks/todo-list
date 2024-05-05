@@ -450,7 +450,7 @@ dialog .form-controls {
   border-color: var(--high-color);
 }
 
-[open].todo-detail {
+dialog[open].todo-details {
   width: fit-content;
   display: grid;
   grid-template-areas:
@@ -461,11 +461,11 @@ dialog .form-controls {
   gap: 0;
 }
 
-.todo-detail > * {
+.todo-details > * {
   padding: 1rem;
 }
 
-.todo-detail .heading {
+.todo-details .heading {
   grid-area: heading;
   display: flex;
   justify-content: space-between;
@@ -473,7 +473,7 @@ dialog .form-controls {
   align-items: center;
 }
 
-.todo-detail .content-container {
+.todo-details .content-container {
   grid-area: content;
   display: flex;
   flex-direction: column;
@@ -485,7 +485,7 @@ dialog .form-controls {
   font-size: 1.8rem;
 }
 
-.todo-detail .properties-container {
+.todo-details .properties-container {
   grid-area: properties;
   background-color: hsl(0, 0%, 95%);
   display: flex;
@@ -502,7 +502,7 @@ dialog .form-controls {
   padding-left: 1rem;
 }
 
-.todo-detail button {
+.todo-details button {
   display: block;
   padding: 0;
   margin: 0;
@@ -512,7 +512,7 @@ dialog .form-controls {
   width: fit-content;
 }
 
-.todo-detail button:hover {
+.todo-details button:hover {
   padding: 0;
   margin: 0;
   color: black;

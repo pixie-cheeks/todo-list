@@ -1,4 +1,5 @@
-import { setState } from "./state";
+import { setState, getState } from "./state";
+import loadExamples from './examples';
 
 function retrieveStorage() {
   return JSON.parse(localStorage.getItem('state'));
@@ -9,8 +10,12 @@ function updateStorage(newContent) {
 }
 
 function initializeStorage() {
-  if (localStorage.length === 0) return;
+  if (localStorage.length === 0) {
+    loadExamples()
+    return;
+  };
   setState(retrieveStorage());
+
 }
 
 export { initializeStorage, updateStorage };
