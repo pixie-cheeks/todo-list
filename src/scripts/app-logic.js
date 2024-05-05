@@ -65,7 +65,6 @@ const app = {
   editTask(projectIndex, taskIndex, ...newTaskProperties) {
     const selectedProjectIndex = project.getSelectedIndex();
 
-    console.table({ projectIndex, taskIndex, newTaskProperties });
     if (projectIndex !== selectedProjectIndex) {
       task.remove(selectedProjectIndex, taskIndex);
       task.add(projectIndex, ...newTaskProperties);

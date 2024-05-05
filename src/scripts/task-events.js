@@ -26,7 +26,9 @@ class AddTask {
     this.titleInput = this.dialog.querySelector('input[type=text]');
     this.description = this.dialog.querySelector('textarea').value;
     this.dueDateInput = this.dialog.querySelector('input[type=date');
-    this.priority = this.dialog.querySelector('input[type=radio][checked]').value;
+    this.priority = Array.from(
+      this.dialog.querySelectorAll('input[type=radio]')
+    ).find(input => input.checked).value;
   }
 
   handleClick() {
