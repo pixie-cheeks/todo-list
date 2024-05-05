@@ -1,1 +1,179 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>To-do List</title><link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"><link rel="icon" href="favicon.ico"><script defer="defer" src="main.js"></script></head><body><header><img class="checkmark-svg"> To-do List</header><dialog class="project-name"><div class="heading">Title</div><input name="title" id="title"><div class="buttons-container"><button class="cancel">Cancel</button> <button class="save">Save</button></div></dialog><dialog class="project-delete"><div class="heading">Are you sure?</div><div class="description"></div><div class="buttons-container"><button class="cancel">Cancel</button> <button class="delete" autofocus>Delete</button></div></dialog><dialog class="todo-info"><form><h3>Add a New Task</h3><div class="field"><label for="title">Title <span class="red-star">*</span></label> <input name="title" id="title" required></div><div class="field"><label for="description">Description (optional)</label> <textarea name="description" id="description" rows="5"></textarea></div><div class="field"><label for="due-date">Due Date <span class="red-star">*</span></label> <input type="date" name="due-date" id="due-date" required></div><div class="select-container"><label for="project-select">Select a project</label> <select name="projects" id="project-select"></select></div><div class="priority-container"><div class="priority-heading">Priority</div><div class="priority-radios"><input type="radio" id="priority-low" name="priority" value="low" checked="checked"> <label class="priority low" for="priority-low">Low</label> <input type="radio" id="priority-medium" name="priority" value="medium"> <label class="priority medium" for="priority-medium">Medium</label> <input type="radio" id="priority-high" name="priority" value="high"> <label class="priority high" for="priority-high">High</label></div></div><div class="form-controls"><button type="button" class="cancel">Cancel</button> <button type="button" class="save">Save</button> <button type="reset" style="display: none;"></button></div></form></dialog><dialog class="todo-delete"><div class="heading"><i class="bx bx-info-square"></i></div><div class="description"></div><div class="buttons-container"><button class="cancel">Cancel</button> <button class="delete" autofocus>Delete</button></div></dialog><dialog class="todo-details"><div class="heading"><h3>Task Details</h3><button class="exit"><i class="bx bx-x"></i></button></div><div class="content-container"><div class="task-title"></div><div class="task-description"></div></div><div class="properties-container"><div class="project-name"><div class="title">Project</div><div class="content"></div></div><div class="due-date"><div class="title">Due date</div><div class="content"></div></div><div class="priority"><div class="title">Priority</div><div class="content"></div></div></div></dialog><div class="sidebar"><button class="add-projects add-btn"><i class="bx bx-folder-plus"></i> Add Project</button><div class="sidebar__title">Projects</div><div class="projects"><template class="projects-template"><div class="projects__item"><div class="item__name"></div><button class="edit"><i class="bx bxs-edit"></i></button> <button class="delete"><i class="bx bx-trash-alt"></i></button></div></template></div></div><div class="todo-section"><div class="todo-head disabled"><div class="current-project-name"></div><button class="add-todos add-btn"><i class="bx bxs-plus-circle"></i> Add Task</button></div><div class="todo-container"></div></div><template class="todo-template"><div class="todo"><input type="checkbox"><div class="todo-title"></div><div class="todo-date"></div><button class="todo-expand"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/></svg></button> <button class="todo-edit"><i class="bx bxs-edit"></i></button> <button class="todo-delete"><i class="bx bx-trash-alt"></i></button></div></template><footer><a class="link link--github" href="https://github.com/pixie-cheeks" target="_blank" rel="noopener noreferrer"><i class="bx bxl-github"></i>pixie-cheeks</a></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>To-do List</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link rel="icon" href="favicon.ico"><script defer="defer" src="main.js"></script></head>
+
+<body>
+  <header>
+    <img class="checkmark-svg"> To-do List
+  </header>
+
+  <dialog class="project-name">
+    <div class="heading">Title</div>
+    <input type="text" name="title" id="title">
+    <div class="buttons-container">
+      <button class="cancel">Cancel</button>
+      <button class="save">Save</button>
+    </div>
+  </dialog>
+
+  <dialog class="project-delete">
+    <div class="heading">Are you sure?</div>
+    <div class="description"></div>
+    <div class="buttons-container">
+      <button class="cancel">Cancel</button>
+      <button class="delete" autofocus>Delete</button>
+    </div>
+  </dialog>
+
+  <dialog class="todo-info">
+    <form>
+      <h3>Add a New Task</h3>
+      <div class="field">
+        <label for="title">Title <span class="red-star">*</span></label>
+        <input type="text" name="title" id="title" required>
+      </div>
+
+      <div class="field">
+        <label for="description">Description (optional)</label>
+        <textarea name="description" id="description" rows="5"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="due-date">Due Date <span class="red-star">*</span></label>
+        <input type="date" name="due-date" id="due-date" required>
+      </div>
+
+      <div class="select-container">
+        <label for="project-select">Select a project</label>
+        <select name="projects" id="project-select">
+        </select>
+      </div>
+
+      <div class="priority-container">
+        <div class="priority-heading">Priority</div>
+        <div class="priority-radios">
+          <input type="radio" id="priority-low" name="priority" value="low" checked="checked">
+          <label class="priority low" for="priority-low">Low</label>
+
+          <input type="radio" id="priority-medium" name="priority" value="medium">
+          <label class="priority medium" for="priority-medium">Medium</label>
+
+          <input type="radio" id="priority-high" name="priority" value="high">
+          <label class="priority high" for="priority-high">High</label>
+        </div>
+
+
+      </div>
+
+      <div class="form-controls">
+        <button type="button" class="cancel">Cancel</button>
+        <button type="button" class="save">Save</button>
+        <button type="reset" style="display: none;"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="todo-delete">
+    <div class="heading">
+      <i class="bx bx-info-square"></i>
+    </div>
+    <div class="description"></div>
+    <div class="buttons-container">
+      <button class="cancel">Cancel</button>
+      <button class="delete" autofocus>Delete</button>
+    </div>
+  </dialog>
+
+  <dialog class="todo-details">
+    <div class="heading">
+      <h3>Task Details</h3>
+      <button class="exit"><i class="bx bx-x"></i></button>
+    </div>
+
+    <div class="content-container">
+      <div class="task-title"></div>
+      <div class="task-description"></div>
+    </div>
+    <div class="properties-container">
+      <div class="project-name">
+        <div class="title">Project</div>
+        <div class="content"></div>
+      </div>
+      <div class="due-date">
+        <div class="title">Due date</div>
+        <div class="content"></div>
+      </div>
+      <div class="priority">
+        <div class="title">Priority</div>
+        <div class="content"></div>
+      </div>
+    </div>
+
+  </dialog>
+
+  <div class="sidebar">
+    <button class="add-projects add-btn">
+      <i class="bx bx-folder-plus"></i> Add Project
+    </button>
+    <div class="sidebar__title">Projects</div>
+    <div class="projects">
+
+      <template class="projects-template">
+        <div class="projects__item">
+          <div class="item__name"></div>
+          <button class="edit">
+            <i class="bx bxs-edit"></i>
+          </button>
+          <button class="delete">
+            <i class="bx bx-trash-alt"></i>
+          </button>
+        </div>
+      </template>
+
+    </div>
+  </div>
+
+  <div class="todo-section">
+    <div class="todo-head disabled">
+      <div class="current-project-name"></div>
+      <button class="add-todos add-btn">
+        <i class="bx bxs-plus-circle"></i> Add Task
+      </button>
+    </div>
+    <div class="todo-container"></div>
+  </div>
+
+  <template class="todo-template">
+    <div class="todo">
+      <input type="checkbox">
+      <div class="todo-title"></div>
+      <div class="todo-date"></div>
+      <button class="todo-expand">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+          <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/>
+        </svg>
+      </button>
+      <button class="todo-edit">
+        <i class="bx bxs-edit"></i>
+      </button>
+      <button class="todo-delete">
+        <i class="bx bx-trash-alt"></i>
+      </button>
+    </div>
+  </template>
+
+  <footer>
+    <a class="link link--github" href="https://github.com/pixie-cheeks" target="_blank" rel="noopener noreferrer">
+      <i class="bx bxl-github"></i>pixie-cheeks
+    </a>
+  </footer>
+
+</body>
+
+</html>
