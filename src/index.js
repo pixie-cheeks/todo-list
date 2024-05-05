@@ -10,8 +10,9 @@ document.querySelector('.checkmark-svg').src = checkmarkSVG;
 // scripts
 import './scripts/state';
 import { initializeStorage } from './scripts/storage';
-import { initializePage } from './scripts/app-logic';
-import './scripts/set-events';
+import app from './scripts/app-logic';
+import './scripts/events';
 import './scripts/examples';
+import './scripts/import-effects'
 
-initializePage();
+app.initializePage();

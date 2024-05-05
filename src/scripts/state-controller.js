@@ -1,6 +1,5 @@
 import { getState } from "./state";
 import { updateStorage } from './storage';
-import { format } from "date-fns";
 
 const projects = getState().projects;
 
@@ -69,7 +68,7 @@ const task = {
     return {
       title,
       description,
-      dueDate: format(dueDate, 'dd MMM'),
+      dueDate,
       priority,
       completed,
     };
@@ -79,12 +78,13 @@ const task = {
 
     updateStorage();
   },
-  replace(projectIndex, taskIndex, newTask) {
-    getTasks(projectIndex)[taskIndex] = newTask;
+  replace(projectIndex, taskIndex, ...newTaskProperties) {
+    getTasks(projectIndex)[taskIndex] = this.create(...newTaskProperties);
     updateStorage();
   },
-  setCompleted(projectIndex, taskIndex, completed) {
-    getTasks(projectIndex)[taskIndex].completed = completed;
+  switchCompleted(projectIndex, taskIndex) {
+    const task = getTasks(projectIndex)[taskIndex];
+    task.completed = task.completed ? false : true;
     updateStorage();
   },
   remove(projectIndex, taskIndex) {

@@ -1,5 +1,5 @@
+import { format } from "date-fns";
 
-// const contentContainer = document.querySelector('.todo-section');
 const projectName = document.querySelector('.current-project-name');
 const projectHead = document.querySelector('.todo-head');
 const tasksContainer = document.querySelector('.todo-container');
@@ -47,7 +47,7 @@ function createTaskDiv(task) {
   const taskComplete = taskDiv.querySelector('input');
 
   taskTitle.textContent = task.title;
-  taskDate.textContent = task.dueDate;
+  taskDate.textContent = format(task.dueDate, 'dd MMM');
   taskComplete.checked = task.completed;
   taskDiv.classList.add(task.priority);
 
@@ -60,4 +60,4 @@ function createTaskDiv(task) {
 }
 
 
-export { renderMain, renderTasks };
+export { renderMain, renderTasks, renderHead };
