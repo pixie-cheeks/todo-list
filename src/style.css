@@ -525,3 +525,7 @@ dialog .select-container {
   display: flex;
   flex-direction: column;
 }
+
+.disabled {
+  display: none;
+}

@@ -1,0 +1,16 @@
+import { setState } from "./state";
+
+function retrieveStorage() {
+  return JSON.parse(localStorage.getItem('state'));
+}
+
+function updateStorage(newContent) {
+  localStorage.setItem('state', JSON.stringify(newContent));
+}
+
+function initializeStorage() {
+  if (localStorage.length === 0) return;
+  setState(retrieveStorage());
+}
+
+export { initializeStorage, updateStorage };
